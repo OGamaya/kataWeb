@@ -38,7 +38,7 @@ class FunctionalTest(TestCase):
         correo.send_keys('jd.patino1@uniandes.edu.co')
 
         imagen = self.browser.find_element_by_id('id_imagen')
-        imagen.send_keys('C:\Users\asistente\Desktop\developer.jpg')
+        imagen.send_keys('C:\Users\user\Pictures\\test.jpg')
 
         nombreUsuario = self.browser.find_element_by_id('id_username')
         nombreUsuario.send_keys('juan645')
