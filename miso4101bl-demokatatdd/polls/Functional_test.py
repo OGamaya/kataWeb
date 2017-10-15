@@ -1,4 +1,9 @@
-__author__ = 'asistente'
+from telnetlib import EC
+from time import sleep
+
+from selenium.webdriver.support.wait import WebDriverWait
+
+_author_ = 'asistente'
 from unittest import TestCase
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -11,7 +16,7 @@ class FunctionalTest(TestCase):
 
     def tearDown(self):
         self.browser.quit()
-
+    
     def test_title(self):
         self.browser.get('http://localhost:8000')
         self.assertIn('Busco Ayuda', self.browser.title)
@@ -68,9 +73,7 @@ class FunctionalTest(TestCase):
         link = self.browser.find_element_by_id('id_login')
         link.click()
 
-
         nombreUsuario = self.browser.find_element_by_id('login_username')
-        print (nombreUsuario)
         nombreUsuario.send_keys('juan645')
 
         clave = self.browser.find_element_by_id('login_password')
@@ -78,23 +81,36 @@ class FunctionalTest(TestCase):
 
         botonLogin = self.browser.find_element_by_id('send_login')
         botonLogin.click()
-        self.browser.implicitly_wait(5)
-        editar = self.browser.find_element_by_id('id_editar')
+        strong = self.browser.find_element(By.XPATH, '//strong[text()="SUCCESS: "]')
+        self.assertIn('SUCCESS:', str(strong.text))
 
-        self.assertIn('Editar', editar.text)
-        
     def test_editar(self):
         self.browser.get('http://localhost:8000')
-        link = self.browser.find_element_by_id('id_editar')
+
+        link = self.browser.find_element_by_id('id_login')
         link.click()
 
+        nombreUsuario = self.browser.find_element_by_id('login_username')
+        nombreUsuario.send_keys('juan645')
+
+        clave = self.browser.find_element_by_id('login_password')
+        clave.send_keys('clave123')
+
+        botonLogin = self.browser.find_element_by_id('send_login')
+        botonLogin.click()
+
+        edit = self.browser.find_element_by_id('id_editar')
+        sleep(4)
+        edit.click()
+
         nombre = self.browser.find_element_by_id('id_nombre')
+        nombre.clear()
         nombre.send_keys('Raul Andres')
 
         botonGrabar = self.browser.find_element_by_id('id_grabar')
         botonGrabar.click()
         self.browser.implicitly_wait(3)
-        span=self.browser.find_element(By.XPATH, '//span[text()="Raul Andres Arevalo"]')
+        #sleep(10)
 
-        self.assertIn('Raul Andres Arevalo', span.text)
-
+        strong = self.browser.find_element(By.XPATH, '//strong[text()="SUCCESS: "]')
+        self.assertIn('SUCCESS:', str(strong.text))
