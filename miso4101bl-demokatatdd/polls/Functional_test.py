@@ -68,16 +68,18 @@ class FunctionalTest(TestCase):
         link = self.browser.find_element_by_id('id_login')
         link.click()
 
-        nombreUsuario = self.browser.find_element_by_id('id_username')
+
+        nombreUsuario = self.browser.find_element_by_id('login_username')
+        print (nombreUsuario)
         nombreUsuario.send_keys('juan645')
 
-        clave = self.browser.find_element_by_id('id_password')
+        clave = self.browser.find_element_by_id('login_password')
         clave.send_keys('clave123')
 
-        botonLogin = self.browser.find_element_by_id('id_login')
+        botonLogin = self.browser.find_element_by_id('send_login')
         botonLogin.click()
-        self.browser.implicitly_wait(3)
-        span = self.browser.find_element(By.XPATH, '//span[text()="Editar"]')
+        self.browser.implicitly_wait(5)
+        editar = self.browser.find_element_by_id('id_editar')
 
-        self.assertIn('Editar', span.text)
+        self.assertIn('Editar', editar.text)
 
