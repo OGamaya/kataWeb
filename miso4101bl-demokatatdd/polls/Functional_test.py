@@ -82,4 +82,19 @@ class FunctionalTest(TestCase):
         editar = self.browser.find_element_by_id('id_editar')
 
         self.assertIn('Editar', editar.text)
+        
+    def test_editar(self):
+        self.browser.get('http://localhost:8000')
+        link = self.browser.find_element_by_id('id_editar')
+        link.click()
+
+        nombre = self.browser.find_element_by_id('id_nombre')
+        nombre.send_keys('Raul Andres')
+
+        botonGrabar = self.browser.find_element_by_id('id_grabar')
+        botonGrabar.click()
+        self.browser.implicitly_wait(3)
+        span=self.browser.find_element(By.XPATH, '//span[text()="Raul Andres Arevalo"]')
+
+        self.assertIn('Raul Andres Arevalo', span.text)
 
