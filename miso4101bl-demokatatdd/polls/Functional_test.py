@@ -118,7 +118,7 @@ class FunctionalTest(TestCase):
     def test_comentar(self):
         self.browser.get('http://localhost:8000')
 
-        link = self.browser.find_element_by_id('trabajador10')
+        link = self.browser.find_element_by_id('trabajador4')
         link.click()
 
         correo = self.browser.find_element_by_id('correo')
@@ -130,5 +130,5 @@ class FunctionalTest(TestCase):
         botonComentar = self.browser.find_element_by_id('comentar')
         botonComentar.click()
 
-        h4 = self.browser.find_element(By.XPATH, '//h4[text()="correo@algo.com "]')
+        h4 = self.browser.find_element(By.XPATH, '//h4[text()="correo@algo.com"]')
         self.assertIn('correo@algo.com', str(h4.text))
