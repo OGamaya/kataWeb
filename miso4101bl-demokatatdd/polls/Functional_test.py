@@ -114,3 +114,21 @@ class FunctionalTest(TestCase):
 
         strong = self.browser.find_element(By.XPATH, '//strong[text()="SUCCESS: "]')
         self.assertIn('SUCCESS:', str(strong.text))
+
+    def test_comentar(self):
+        self.browser.get('http://localhost:8000')
+
+        link = self.browser.find_element_by_id('trabajador10')
+        link.click()
+
+        correo = self.browser.find_element_by_id('correo')
+        correo.send_keys('correo@algo.com')
+
+        comentario = self.browser.find_element_by_id('comentario')
+        comentario.send_keys('Este es un comentario')
+
+        botonComentar = self.browser.find_element_by_id('comentar')
+        botonComentar.click()
+
+        h4 = self.browser.find_element(By.XPATH, '//h4[text()="correo@algo.com "]')
+        self.assertIn('correo@algo.com', str(h4.text))
